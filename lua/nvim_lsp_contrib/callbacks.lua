@@ -1,5 +1,6 @@
 local vim = vim
 local lsp = vim.lsp
+
 local M = {}
 
 local function convert_signature_help_to_markdown_lines(signature_help)
@@ -71,6 +72,19 @@ function M.signature_help(_, method, result)
   lsp.util.focusable_preview(method, function()
     return lines, lsp.util.try_trim_markdown_code_blocks(lines)
   end)
+end
+
+function M.publish_diagnostics(_, method, result)
+  if not result then return end
+  local uri = result.uri
+  local bufnr = vim.uri_to_bufnr(uri)
+  if not bufnr then
+    err_message("LSP.publishDiagnostics: Couldn't find buffer for ", uri)
+    return
+  end
+  lsp.util.buf_clear_diagnostics(bufnr)
+  lsp.util.buf_diagnostics_save_positions(bufnr, result.diagnostics)
+  lsp.util.buf_diagnostics_underline(bufnr, result.diagnostics)
 end
 
 return M
