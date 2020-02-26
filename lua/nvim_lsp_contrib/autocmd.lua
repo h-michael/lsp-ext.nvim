@@ -2,7 +2,7 @@ local vim = vim
 local api = vim.api
 local lsp = vim.lsp
 local uv = vim.loop
-local util = require'nvim_lsp_contrib/util'
+local util = require'nvim_lsp_contrib/internal/util'
 
 local M = {
   debounce_timer = nil
