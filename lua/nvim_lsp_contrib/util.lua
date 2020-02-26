@@ -1,31 +1,29 @@
 local vim = vim
-local uv = vim.loop
+local lsp = vim.lsp
+local util = require'nvim_lsp_contrib/internal/util'
 
 local M = {}
 
-function M.set_timeout(timeout, callback)
-  local timer = uv.new_timer()
-  local function ontimeout()
-    uv.timer_stop(timer)
-    uv.close(timer)
-    callback(timer)
-  end
-  uv.timer_start(timer, timeout, 0, ontimeout)
-  return timer
+function M.pp_buf_clients()
+  util.pp(lsp.buf_get_clients())
 end
 
-function M.clear_timeout(timer)
-  uv.timer_stop(timer)
-  uv.close(timer)
+function M.pp_buf_clients_config()
+  util.pp_map_clients(function(client)
+    return { name = client.name, config = client.config }
+  end)
 end
 
-function M.set_interval(interval, callback)
-  local timer = uv.new_timer()
-  local function ontimeout()
-    callback(timer)
-  end
-  uv.timer_start(timer, interval, interval, ontimeout)
-  return timer
+function M.pp_buf_servers_capabilities()
+  util.pp_map_clients(function(client)
+    return { name = client.name, server_capabilities = client.server_capabilities }
+  end)
+end
+
+function M.pp_buf_resolved_capabilities()
+  util.pp_map_clients(function(client)
+    return { name = client.name, resolved_capabilities = client.resolved_capabilities }
+  end)
 end
 
 return M
