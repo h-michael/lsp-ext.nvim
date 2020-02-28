@@ -1,29 +1,41 @@
 local vim = vim
 local lsp = vim.lsp
-local util = require'nvim_lsp_contrib/internal/util'
+local putil = require'nvim_lsp_contrib/private/util'
 
 local M = {}
 
 function M.pp_buf_clients()
-  util.pp(lsp.buf_get_clients())
+  putil.pp(lsp.buf_get_clients())
+end
+
+function M.buf_clients_config()
+  return putil.map_clients(function(client)
+    return { name = client.name, filetype = client.filetype, config = client.config }
+  end)
 end
 
 function M.pp_buf_clients_config()
-  util.pp_map_clients(function(client)
-    return { name = client.name, config = client.config }
+  putil.pp(M.buf_clients_config())
+end
+
+function M.buf_servers_capabilities()
+  return putil.map_clients(function(client)
+    return { name = client.name, filetype = client.filetype, server_capabilities = client.server_capabilities }
   end)
 end
 
 function M.pp_buf_servers_capabilities()
-  util.pp_map_clients(function(client)
-    return { name = client.name, server_capabilities = client.server_capabilities }
+  putil.pp(M.buf_servers_capabilities())
+end
+
+function M.buf_resolved_capabilities()
+  return putil.map_clients(function(client)
+    return { name = client.name, filetype = client.filetype, resolved_capabilities = client.resolved_capabilities }
   end)
 end
 
 function M.pp_buf_resolved_capabilities()
-  util.pp_map_clients(function(client)
-    return { name = client.name, resolved_capabilities = client.resolved_capabilities }
-  end)
+  putil.pp(M.buf_reoslved_capabilities())
 end
 
 function M.set_default_diagnostics_highlight()
@@ -34,8 +46,6 @@ function M.set_default_diagnostics_highlight()
       vim.cmd(string.format("highlight default link %s%s %s", underline_highlight_name, kind, underline_highlight_name))
     end
   end
-
-  local severity_highlights = {}
 
   local default_severity_highlight = {
     [lsp.protocol.DiagnosticSeverity.Error] = { guifg = "Red" };
