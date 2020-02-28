@@ -35,7 +35,7 @@ function M.buf_resolved_capabilities()
 end
 
 function M.pp_buf_resolved_capabilities()
-  putil.pp(M.buf_reoslved_capabilities())
+  putil.pp(M.buf_resolved_capabilities())
 end
 
 function M.set_default_diagnostics_highlight()
