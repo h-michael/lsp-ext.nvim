@@ -9,9 +9,9 @@ function M.pp(...)
   print(inspect(...))
 end
 
-function M.pp_map_clients(func)
+function M.map_clients(func)
   local clients = lsp.buf_get_clients()
-  M.pp(vim.tbl_map(func, clients))
+  return vim.tbl_map(func, clients)
 end
 
 function M.set_timeout(timeout, callback)
