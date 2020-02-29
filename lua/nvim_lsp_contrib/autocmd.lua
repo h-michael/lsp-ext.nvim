@@ -2,6 +2,7 @@ local vim = vim
 local api = vim.api
 local lsp = vim.lsp
 local uv = vim.loop
+local util = require'nvim_lsp_contrib/util'
 local putil = require'nvim_lsp_contrib/private/util'
 
 local M = {
@@ -24,6 +25,18 @@ end
 
 function M._on_cursor_moved(wait)
   vim.validate{wait={wait,'n'}}
+
+  local function should_call_signature_help()
+    local chars = vim.tbl_flatten(vim.tbl_map(function(cap)
+        return cap.resolved_capabilities.signature_help_trigger_characters
+      end, util.buf_resolved_capabilities()))
+    if vim.tbl_contains(chars, putil.get_before_char_skip_white()) then
+      return true
+    end
+    return false
+  end
+
+  if not should_call_signature_help() then return end
 
   if M.debounce_timer ~= nil then
     if uv.is_active(M.debounce_timer) then
