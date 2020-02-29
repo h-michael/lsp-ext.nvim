@@ -39,4 +39,36 @@ function M.set_interval(interval, callback)
   return timer
 end
 
+function M.get_before_char_skip_white()
+  local function get_before_line()
+    local text = vim.fn.getline('.')
+    local idx = vim.fn.min({ vim.fn.strlen(text), vim.fn.col('.') - 2})
+    idx = vim.fn.max({idx, -1 })
+    if idx == -1 then
+      return ''
+    end
+    return text:sub(1, idx + 1)
+  end
+
+  local current_lnum = vim.fn.line('.')
+
+  local lnum = current_lnum
+  while lnum > 0 do
+    local text
+    if lnum == current_lnum then
+      text = get_before_line()
+    else
+      text = vim.fn.getline(lnum)
+    end
+    local match = vim.fn.matchlist(text, '\\([^[:blank:]]\\)\\s*$')
+
+    if vim.fn.get(match, 1, nil) ~= nil then
+      return match[1]
+    end
+    lnum = lnum - 1
+  end
+
+  return ''
+end
+
 return M
