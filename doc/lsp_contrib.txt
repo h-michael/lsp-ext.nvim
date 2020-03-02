@@ -162,8 +162,7 @@ g:lsp_publish_diagnostics_virtualtext
     chose whether showing diagnostic messages at the virtualtext or not.
 
     Type: boolean
-    Default: ~
-        not set(if this is not set value, virtual text will not been used)
+    Default: false
 
                                     *g:lsp_publish_diagnostics_display_method*
 g:lsp_publish_diagnostics_display_method
@@ -174,8 +173,7 @@ g:lsp_publish_diagnostics_display_method
     Members:
         - "echo"
         - "float"
-    Default: ~
-        not set(if this is not set value, it will be "echo") 
+    Default: "float"
 
 ==============================================================================
 vim:tw=78:ts=4:sts=4:sw=4:ft=help:norl:

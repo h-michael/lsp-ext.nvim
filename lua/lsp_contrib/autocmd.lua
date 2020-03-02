@@ -1,4 +1,4 @@
-local vim = vim
+local vim = vim or {}
 local api = vim.api
 local lsp = vim.lsp
 local uv = vim.loop
@@ -17,7 +17,7 @@ function M.set_signature_help_autocmd(wait)
   lsp.callbacks['textDocument/signatureHelp'] = callbacks.signature_help
   api.nvim_command('augroup nvim_lsp_signature_help')
   api.nvim_command('autocmd!')
-  api.nvim_command(string.format("autocmd CursorMoved,CursorMovedI * lua require'lsp_contrib.autocmd'._on_cursor_moved_for_signature_help(%s)", wait))
+  api.nvim_command(string.format("autocmd CursorMoved,CursorMovedI * lua require'lsp_contrib'._on_cursor_moved_for_signature_help(%s)", wait))
   api.nvim_command('augroup END')
 end
 
@@ -56,7 +56,7 @@ function M.set_publish_diagnostics_autocmd(wait)
   lsp.callbacks['textDocument/publishDiagnostics'] = callbacks.publish_diagnostics
   api.nvim_command('augroup nvim_lsp_publish_diagnostics')
   api.nvim_command('autocmd!')
-  api.nvim_command(string.format("autocmd CursorMoved * lua require'lsp_contrib.autocmd'._on_cursor_moved_for_publish_diagnostics(%s)", wait))
+  api.nvim_command(string.format("autocmd CursorMoved * lua require'lsp_contrib'._on_cursor_moved_for_publish_diagnostics(%s)", wait))
   api.nvim_command('augroup END')
 end
 
@@ -161,7 +161,7 @@ function M._on_cursor_moved_for_publish_diagnostics(wait)
     _open_floating_window(messages)
   end
 
-  if not (vim.g["lsp_publish_diagnostics_display_method"] == "echo") then
+  if vim.g["lsp_publish_diagnostics_display_method"] == "echo" then
     _echo_diagnostic_messages()
   elseif vim.g["lsp_publish_diagnostics_display_method"] == "float" then
     if M.diagnostics_debounce_timer ~= nil then
