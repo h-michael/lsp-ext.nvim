@@ -71,4 +71,52 @@ function M.get_before_char_skip_white()
   return ''
 end
 
+function M.is_possition_in_range(range, _pos)
+  local pos = _pos or vim.api.nvim_win_get_cursor(0)
+
+  local line = pos[1] - 1
+  local col = pos[2]
+
+  if range.start.line > line or range["end"].line < line then return false end
+
+  if range.start.line == range["end"].line then
+    if range.start.line == line and (range.start.character <= col and range["end"].character >=  col) then
+      return true
+    else
+      return false
+    end
+  end
+
+  if range.start.line == line then
+    if range.start.character <= col then
+      return true
+    else
+      return false
+    end
+  end
+
+  if range.start.line < line and range["end"].line > line then
+    return true
+  end
+
+  if range["end"].line == line then
+    if range.start.character >= col then
+      return true
+    else
+      return false
+    end
+  end
+
+  return false
+end
+
+function M.is_line_in_range(range, _line)
+  local line = _line or vim.api.nvim_win_get_cursor(0)[1]
+  line = line - 1
+
+  if range.start.line > line or range["end"].line < line then return false end
+
+  return true
+end
+
 return M
