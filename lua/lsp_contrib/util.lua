@@ -1,6 +1,6 @@
 local vim = vim
 local lsp = vim.lsp
-local putil = require'nvim_lsp_contrib/private/util'
+local putil = require'lsp_contrib/private/util'
 
 local M = {}
 
