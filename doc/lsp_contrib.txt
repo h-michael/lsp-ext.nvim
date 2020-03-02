@@ -7,7 +7,9 @@ CONTENTS                                                *lsp_contrib_contents*
 Introduction                                        |lsp_contrib_introduction|
 Install                                                  |lsp_contrib_install|
 Usage                                                      |lsp_contrib_usage|
-Utility function                                            |lsp_contrib_util|
+Functions                                              |lsp_contrib_functions|
+    Utility Functions                                       |lsp_contrib.util|
+Options                                                  |lsp_contrib.options|
 
 ==============================================================================
 INTRODUCTION                                        *lsp_contrib_introduction*
@@ -45,7 +47,39 @@ And you can call Lua from command like this. >
 
 With luaeval function >
     :call luaeval("require'lsp_contrib'.util.pp_buf_clients()")
+
 ==============================================================================
+FUNCTIONS                                              *lsp_contrib_functions*
+
+                                      *lsp_contrib.set_signature_help_autocmd*
+lsp_contrib.set_signature_help_autocmd({wait})
+    Override `textDocument/signatureHelp` default callback and set autocmd for
+    `textDocument/signatureHelp`.
+    That autocmd execute `textDocument/signatureHelp` request if necessary,
+    when |CursorMoved| event occurs.
+
+    Parameters: ~
+        {wait}  delay time(ms)
+
+                                    *lsp_contrib.unset_signature_help_autocmd*
+lsp_contrib.unset_signature_help_autocmd({wait})
+    Unset autocmd for `textDocument/signatureHelp`.
+
+                                 *lsp_contrib.set_publish_diagnostics_autocmd*
+lsp_contrib.set_publish_diagnostics_autocmd({wait})
+    Override `textDocument/publishDiagnostics` default callback and set
+    autocmd for `textDocument/publishDiagnostics`.
+    That autocmd for showing publishDiagnostics`, when |CursorMoved| event
+    occurs.
+
+    Parameters: ~
+        {wait}  delay time(ms)
+
+                               *lsp_contrib.unset_publish_diagnostics_autocmd*
+lsp_contrib.unset_publish_diagnostics_autocmd({wait})
+    Unset autocmd for `textDocument/publishDiagnostics`.
+
+------------------------------------------------------------------------------
 UTILITY FUNCTION                                            *lsp_contrib.util*
 
                                              *lsp_contrib.util.pp_buf_clients*
@@ -118,6 +152,30 @@ lsp_contrib.util.buf_resolved_capabilities()
                              *lsp_contrib.util.pp_buf_resolved_capabilities()*
 lsp_contrib.util.pp_buf_resolved_capabilities()
     Print list of resolve_capabilities.
+
+==============================================================================
+OPTIONS                                                  *lsp_contrib_options*
+
+                                       *g:lsp_publish_diagnostics_virtualtext*
+g:lsp_publish_diagnostics_virtualtext
+    If you execute *lsp_contrib.set_publish_diagnostics_autocmd()*, you can
+    chose whether showing diagnostic messages at the virtualtext or not.
+
+    Type: boolean
+    Default: ~
+        not set(if this is not set value, virtual text will not been used)
+
+                                    *g:lsp_publish_diagnostics_display_method*
+g:lsp_publish_diagnostics_display_method
+    If you execute *lsp_contrib.set_publish_diagnostics_autocmd()*, you can
+    chose where showing diagnostic messages at the virtualtext or not.
+
+    Type: string
+    Members:
+        - "echo"
+        - "float"
+    Default: ~
+        not set(if this is not set value, it will be "echo") 
 
 ==============================================================================
 vim:tw=78:ts=4:sts=4:sw=4:ft=help:norl:
