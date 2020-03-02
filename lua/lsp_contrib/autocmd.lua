@@ -13,7 +13,7 @@ function M.set_signature_help_autocmd(wait)
   wait = wait or 500
   api.nvim_command('augroup nvim_lsp_signature_help')
   api.nvim_command('autocmd!')
-  api.nvim_command(string.format("autocmd CursorMoved,CursorMovedI * lua require'nvim_lsp_contrib'.autocmd._on_cursor_moved(%s)", wait))
+  api.nvim_command(string.format("autocmd CursorMoved,CursorMovedI * lua require'lsp_contrib'.autocmd._on_cursor_moved(%s)", wait))
   api.nvim_command('augroup END')
 end
 
