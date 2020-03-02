@@ -1,4 +1,4 @@
-local vim = vim
+local vim = vim or {}
 local lsp = vim.lsp
 local inspect = vim.inspect
 local uv = vim.loop

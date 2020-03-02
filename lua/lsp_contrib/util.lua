@@ -1,4 +1,4 @@
-local vim = vim
+local vim = vim or {}
 local lsp = vim.lsp
 local putil = require'lsp_contrib/private/util'
 
