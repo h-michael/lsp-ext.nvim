@@ -15,5 +15,9 @@ local M = {
 
 vim.g["lsp_publish_diagnostics_virtualtext"] = false
 vim.g["lsp_publish_diagnostics_display_method"] = "float"
+vim.g["lsp_publish_diagnostics_severity_string_error"] = "E"
+vim.g["lsp_publish_diagnostics_severity_string_warning"] = "W"
+vim.g["lsp_publish_diagnostics_severity_string_info"] = "I"
+vim.g["lsp_publish_diagnostics_severity_string_hint"] = "H"
 
 return M
