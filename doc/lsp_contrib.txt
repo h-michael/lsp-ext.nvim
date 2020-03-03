@@ -175,5 +175,25 @@ g:lsp_publish_diagnostics_display_method
         - "float"
     Default: "float"
 
+                               *lsp_publish_diagnostics_severity_string_error*
+g:lsp_publish_diagnostics_severity_string_error
+    Type: string
+    Default: "E"
+
+                             *lsp_publish_diagnostics_severity_string_warning*
+g:lsp_publish_diagnostics_severity_string_warning
+    Type: string
+    Default: "W"
+
+                                *lsp_publish_diagnostics_severity_string_info*
+g:lsp_publish_diagnostics_severity_string_info
+    Type: string
+    Default: "I"
+
+                                *lsp_publish_diagnostics_severity_string_hint*
+g:lsp_publish_diagnostics_severity_string_hint
+    Type: string
+    Default: "H"
+
 ==============================================================================
 vim:tw=78:ts=4:sts=4:sw=4:ft=help:norl:
