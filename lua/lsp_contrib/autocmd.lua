@@ -13,7 +13,7 @@ local M = {
 }
 
 function M.set_signature_help_autocmd(wait)
-  wait = wait or 500
+  wait = wait or 100
   lsp.callbacks['textDocument/signatureHelp'] = callbacks.signature_help
   api.nvim_command('augroup nvim_lsp_signature_help')
   api.nvim_command('autocmd!')
@@ -52,7 +52,7 @@ function M._on_cursor_moved_for_signature_help(wait)
 end
 
 function M.set_publish_diagnostics_autocmd(wait)
-  wait = wait or 500
+  wait = wait or 100
   lsp.callbacks['textDocument/publishDiagnostics'] = callbacks.publish_diagnostics
   api.nvim_command('augroup nvim_lsp_publish_diagnostics')
   api.nvim_command('autocmd!')
@@ -81,7 +81,13 @@ function M._on_cursor_moved_for_publish_diagnostics(wait)
   local function _build_diagnostics_messages(diagnostics)
     local messages = {}
     for _, diagnostic in ipairs(diagnostics) do
-      table.insert(messages, diagnostic.message)
+      local message = ""
+      local severity = putil.convert_severity(diagnostic.severity)
+      if severity then message = string.format("[%s]", severity) end
+      message = string.format("%s %s", message, diagnostic.message)
+      if diagnostic.code then message = string.format("%s [%s]", message, diagnostic.code) end
+      if diagnostic.source then message = string.format("%s [%s]", message, diagnostic.source) end
+      table.insert(messages, message)
     end
 
     return messages
@@ -121,8 +127,7 @@ function M._on_cursor_moved_for_publish_diagnostics(wait)
       local height = #contents
       width = 0
       for i, line in ipairs(contents) do
-        -- Clean up the input and add left pad.
-        line = " "..line:gsub("\r", "")
+        line = line:gsub("\r", "")
         local line_width = vim.fn.strdisplaywidth(line)
         width = math.max(line_width, width)
         contents[i] = line
@@ -132,10 +137,10 @@ function M._on_cursor_moved_for_publish_diagnostics(wait)
 
       local floating_bufnr = api.nvim_create_buf(false, true)
       local float_option = lsp.util.make_floating_popup_options(width, height)
-      local floating_winnr = api.nvim_open_win(floating_bufnr, false, float_option)
+      local floating_winnr = vim.api.nvim_open_win(floating_bufnr, false, float_option)
       api.nvim_buf_set_lines(floating_bufnr, 0, -1, true, contents)
       api.nvim_buf_set_option(floating_bufnr, 'modifiable', false)
-      api.nvim_command("autocmd CursorMoved,BufHidden,InsertCharPre <buffer> ++once lua pcall(vim.api.nvim_win_close, "..floating_winnr..", true)")
+      api.nvim_command("autocmd CursorMoved,CursorMovedI,BufHidden <buffer> ++once lua pcall(vim.api.nvim_win_close, "..floating_winnr..", true)")
       return floating_bufnr, floating_winnr
     end
 

@@ -124,4 +124,18 @@ function M.is_line_in_range(range, _line)
   return true
 end
 
+function M.convert_severity(severity)
+  if severity == 1 then
+    return vim.g["lsp_publish_diagnostics_severity_string_error"]
+  elseif severity == 2 then
+    return vim.g["lsp_publish_diagnostics_severity_string_warning"]
+  elseif severity == 3 then
+    return vim.g["lsp_publish_diagnostics_severity_string_info"]
+  elseif severity == 4 then
+    return vim.g["lsp_publish_diagnostics_severity_string_hint"]
+  else
+    return nil
+  end
+end
+
 return M
