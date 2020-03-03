@@ -1,4 +1,5 @@
 local vim = vim or {}
+local api = vim.api
 local lsp = vim.lsp
 local inspect = vim.inspect
 local uv = vim.loop
@@ -6,7 +7,11 @@ local uv = vim.loop
 local M = {}
 
 function M.pp(...)
-  print(inspect(...))
+  if select("#", ...) == 1 then
+    api.nvim_command("echo '"..inspect(...).."'")
+  else
+    api.nvim_command("echo '"..inspect({...}).."'")
+  end
 end
 
 function M.map_clients(func)
@@ -72,7 +77,7 @@ function M.get_before_char_skip_white()
 end
 
 function M.is_possition_in_range(range, _pos)
-  local pos = _pos or vim.api.nvim_win_get_cursor(0)
+  local pos = _pos or api.nvim_win_get_cursor(0)
 
   local line = pos[1] - 1
   local col = pos[2]
@@ -111,7 +116,7 @@ function M.is_possition_in_range(range, _pos)
 end
 
 function M.is_line_in_range(range, _line)
-  local line = _line or vim.api.nvim_win_get_cursor(0)[1]
+  local line = _line or api.nvim_win_get_cursor(0)[1]
   line = line - 1
 
   if range.start.line > line or range["end"].line < line then return false end

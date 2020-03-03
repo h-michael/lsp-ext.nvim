@@ -1,4 +1,5 @@
 local vim = vim or {}
+local api = vim.api
 local lsp = vim.lsp
 local putil = require'lsp_contrib/private/util'
 
@@ -63,7 +64,7 @@ function M.set_default_diagnostics_highlight()
     for k, v in pairs(hi_info) do
       table.insert(cmd_parts, k.."="..v)
     end
-    vim.api.nvim_command(table.concat(cmd_parts, ' '))
+    api.nvim_command(table.concat(cmd_parts, ' '))
   end
 end
 

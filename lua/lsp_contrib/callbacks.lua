@@ -1,4 +1,5 @@
 local vim = vim or {}
+local api = vim.api
 local lsp = vim.lsp
 
 local M = {}
@@ -86,7 +87,7 @@ function M.publish_diagnostics(_, _method, result)
   if vim.g["lsp_publish_diagnostics_virtualtext"] then
     lsp.util.buf_diagnostics_virtual_text(bufnr, result.diagnostics)
   end
-  vim.api.nvim_command("doautocmd User LspDiagnosticsChanged")
+  api.nvim_command("doautocmd User LspDiagnosticsChanged")
 end
 
 return M

@@ -94,7 +94,7 @@ function M._on_cursor_moved_for_publish_diagnostics(wait)
 
     if not diagnostics then return end
 
-    local line = vim.api.nvim_win_get_cursor(0)[0]
+    local line = api.nvim_win_get_cursor(0)[0]
     local target_diagnostics = {}
 
     for _, diagnostic in ipairs(diagnostics) do
@@ -112,7 +112,7 @@ function M._on_cursor_moved_for_publish_diagnostics(wait)
       if echo_message ~= "" then echo_message = echo_message.."\n" end
       echo_message = echo_message..message
     end
-    vim.api.nvim_command("echo '"..echo_message.."'")
+    api.nvim_command("echo '"..echo_message.."'")
   end
 
   local function _show_publish_diagnostics_floating_window()
@@ -130,12 +130,12 @@ function M._on_cursor_moved_for_publish_diagnostics(wait)
       -- Add right padding of 1 each.
       width = width + 1
 
-      local floating_bufnr = vim.api.nvim_create_buf(false, true)
+      local floating_bufnr = api.nvim_create_buf(false, true)
       local float_option = lsp.util.make_floating_popup_options(width, height)
-      local floating_winnr = vim.api.nvim_open_win(floating_bufnr, false, float_option)
-      vim.api.nvim_buf_set_lines(floating_bufnr, 0, -1, true, contents)
-      vim.api.nvim_buf_set_option(floating_bufnr, 'modifiable', false)
-      vim.api.nvim_command("autocmd CursorMoved,BufHidden,InsertCharPre <buffer> ++once lua pcall(vim.api.nvim_win_close, "..floating_winnr..", true)")
+      local floating_winnr = api.nvim_open_win(floating_bufnr, false, float_option)
+      api.nvim_buf_set_lines(floating_bufnr, 0, -1, true, contents)
+      api.nvim_buf_set_option(floating_bufnr, 'modifiable', false)
+      api.nvim_command("autocmd CursorMoved,BufHidden,InsertCharPre <buffer> ++once lua pcall(vim.api.nvim_win_close, "..floating_winnr..", true)")
       return floating_bufnr, floating_winnr
     end
 
@@ -145,7 +145,7 @@ function M._on_cursor_moved_for_publish_diagnostics(wait)
 
     if not diagnostics then return end
 
-    local pos = vim.api.nvim_win_get_cursor(0)
+    local pos = api.nvim_win_get_cursor(0)
     local target_diagnostics = {}
 
     for _, diagnostic in ipairs(diagnostics) do
