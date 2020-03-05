@@ -162,7 +162,7 @@ g:lsp_publish_diagnostics_virtualtext
     chose whether showing diagnostic messages at the virtualtext or not.
 
     Type: boolean
-    Default: false
+    Default: true
 
                                     *g:lsp_publish_diagnostics_display_method*
 g:lsp_publish_diagnostics_display_method
