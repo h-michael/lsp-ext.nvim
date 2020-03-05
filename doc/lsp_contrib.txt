@@ -14,15 +14,15 @@ Options                                                  |lsp_contrib.options|
 ==============================================================================
 INTRODUCTION                                        *lsp_contrib_introduction*
 
-Collection of utility, callback and autocomand for Nvim built-in LSP client.
+lsp-contrib.nvim is collection of utility, callback and autocomand for Nvim built-in LSP client.
 
-Provides utility function for dubugging Nvim built-in LSP client and viewing
+It provides utility function for dubugging Nvim built-in LSP client and viewing
 status and callbacks to replace the default callbacks.
 
 ==============================================================================
 INSTALL                                                  *lsp_contrib_install*
 
-Install the lsp-contrib.nvim plugin. Below is a sample using plug.vim
+Install the lsp-contrib.nvim plugin. Below is a sample using vim-plug
 >
     Plug 'h-michael/lsp-contrib.nvim'
 
