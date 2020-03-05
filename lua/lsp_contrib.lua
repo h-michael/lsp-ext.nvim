@@ -13,11 +13,11 @@ local M = {
   _on_cursor_moved_for_publish_diagnostics = autocmd._on_cursor_moved_for_publish_diagnostics
 }
 
-vim.g["lsp_publish_diagnostics_virtualtext"] = false
-vim.g["lsp_publish_diagnostics_display_method"] = "float"
-vim.g["lsp_publish_diagnostics_severity_string_error"] = "E"
-vim.g["lsp_publish_diagnostics_severity_string_warning"] = "W"
-vim.g["lsp_publish_diagnostics_severity_string_info"] = "I"
-vim.g["lsp_publish_diagnostics_severity_string_hint"] = "H"
+vim.g["lsp_publish_diagnostics_virtualtext"] = vim.g["lsp_publish_diagnostics_virtualtext"] or false
+vim.g["lsp_publish_diagnostics_display_method"] = vim.g["lsp_publish_diagnostics_display_method"] or "float"
+vim.g["lsp_publish_diagnostics_severity_string_error"] = vim.g["lsp_publish_diagnostics_severity_string_error"] or "E"
+vim.g["lsp_publish_diagnostics_severity_string_warning"] = vim.g["lsp_publish_diagnostics_severity_string_warning"] or "W"
+vim.g["lsp_publish_diagnostics_severity_string_info"] = vim.g["lsp_publish_diagnostics_severity_string_info"] or "I"
+vim.g["lsp_publish_diagnostics_severity_string_hint"] = vim.g["lsp_publish_diagnostics_severity_string_hint"] or "H"
 
 return M
