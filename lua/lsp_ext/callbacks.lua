@@ -79,7 +79,7 @@ function M.publish_diagnostics(_, _, result)
   if not result then return end
   local uri = result.uri
   local bufnr = vim.uri_to_bufnr(uri)
-  require'lsp_contrib/autocmd'.set_diagnostics(result)
+  require'lsp_ext/autocmd'.set_diagnostics(result)
   lsp.util.buf_clear_diagnostics(bufnr)
   lsp.util.buf_diagnostics_save_positions(bufnr, result.diagnostics)
   lsp.util.buf_diagnostics_underline(bufnr, result.diagnostics)

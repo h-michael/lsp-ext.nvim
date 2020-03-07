@@ -1,7 +1,7 @@
 local vim = vim or {}
 local api = vim.api
 local lsp = vim.lsp
-local putil = require'lsp_contrib/private/util'
+local putil = require'lsp_ext/private/util'
 
 local M = {}
 
