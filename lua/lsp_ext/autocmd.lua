@@ -2,9 +2,9 @@ local vim = vim or {}
 local api = vim.api
 local lsp = vim.lsp
 local uv = vim.loop
-local callbacks = require'lsp_contrib/callbacks'
-local util = require'lsp_contrib/util'
-local putil = require'lsp_contrib/private/util'
+local callbacks = require'lsp_ext/callbacks'
+local util = require'lsp_ext/util'
+local putil = require'lsp_ext/private/util'
 
 local M = {
   signature_help_debounce_timer = nil;
@@ -17,7 +17,7 @@ function M.set_signature_help_autocmd(wait)
   lsp.callbacks['textDocument/signatureHelp'] = callbacks.signature_help
   api.nvim_command('augroup nvim_lsp_signature_help')
   api.nvim_command('autocmd!')
-  api.nvim_command(string.format("autocmd CursorMoved,CursorMovedI,VimResized,BufHidden * lua require'lsp_contrib'._on_cursor_moved_for_signature_help(%s)", wait))
+  api.nvim_command(string.format("autocmd CursorMoved,CursorMovedI,VimResized,BufHidden * lua require'lsp_ext'._on_cursor_moved_for_signature_help(%s)", wait))
   api.nvim_command('augroup END')
 end
 
@@ -56,7 +56,7 @@ function M.set_publish_diagnostics_autocmd(wait)
   lsp.callbacks['textDocument/publishDiagnostics'] = callbacks.publish_diagnostics
   api.nvim_command('augroup nvim_lsp_publish_diagnostics')
   api.nvim_command('autocmd!')
-  api.nvim_command(string.format("autocmd CursorMoved * lua require'lsp_contrib'._on_cursor_moved_for_publish_diagnostics(%s)", wait))
+  api.nvim_command(string.format("autocmd CursorMoved * lua require'lsp_ext'._on_cursor_moved_for_publish_diagnostics(%s)", wait))
   api.nvim_command('augroup END')
 end
 

@@ -1,7 +1,7 @@
 local vim = vim or {}
-local util = require'lsp_contrib/util'
-local autocmd = require'lsp_contrib/autocmd'
-local callbacks = require'lsp_contrib/callbacks'
+local util = require'lsp_ext/util'
+local autocmd = require'lsp_ext/autocmd'
+local callbacks = require'lsp_ext/callbacks'
 local M = {
   util = util,
   callbacks = callbacks,
