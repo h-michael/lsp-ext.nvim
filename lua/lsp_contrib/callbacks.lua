@@ -75,7 +75,7 @@ function M.signature_help(_, method, result)
   end)
 end
 
-function M.publish_diagnostics(_, _method, result)
+function M.publish_diagnostics(_, _, result)
   if not result then return end
   local uri = result.uri
   local bufnr = vim.uri_to_bufnr(uri)

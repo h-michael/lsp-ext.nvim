@@ -17,7 +17,7 @@ function M.set_signature_help_autocmd(wait)
   lsp.callbacks['textDocument/signatureHelp'] = callbacks.signature_help
   api.nvim_command('augroup nvim_lsp_signature_help')
   api.nvim_command('autocmd!')
-  api.nvim_command(string.format("autocmd CursorMoved,CursorMovedI * lua require'lsp_contrib'._on_cursor_moved_for_signature_help(%s)", wait))
+  api.nvim_command(string.format("autocmd CursorMoved,CursorMovedI,VimResized,BufHidden * lua require'lsp_contrib'._on_cursor_moved_for_signature_help(%s)", wait))
   api.nvim_command('augroup END')
 end
 
@@ -140,7 +140,7 @@ function M._on_cursor_moved_for_publish_diagnostics(wait)
       local floating_winnr = vim.api.nvim_open_win(floating_bufnr, false, float_option)
       api.nvim_buf_set_lines(floating_bufnr, 0, -1, true, contents)
       api.nvim_buf_set_option(floating_bufnr, 'modifiable', false)
-      api.nvim_command("autocmd CursorMoved,CursorMovedI,BufHidden <buffer> ++once lua pcall(vim.api.nvim_win_close, "..floating_winnr..", true)")
+      lsp.util.close_preview_autocmd({"CursorMoved", "CursorMovedI", "VimResized,BufHidden", floating_winnr})
       return floating_bufnr, floating_winnr
     end
 
