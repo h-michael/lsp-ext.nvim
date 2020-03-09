@@ -140,7 +140,7 @@ function M._on_cursor_moved_for_publish_diagnostics(wait)
       local floating_winnr = vim.api.nvim_open_win(floating_bufnr, false, float_option)
       api.nvim_buf_set_lines(floating_bufnr, 0, -1, true, contents)
       api.nvim_buf_set_option(floating_bufnr, 'modifiable', false)
-      lsp.util.close_preview_autocmd({"CursorMoved", "CursorMovedI", "VimResized,BufHidden", floating_winnr})
+      lsp.util.close_preview_autocmd({"CursorMoved", "CursorMovedI", "VimResized,BufHidden"}, floating_winnr)
       return floating_bufnr, floating_winnr
     end
 
