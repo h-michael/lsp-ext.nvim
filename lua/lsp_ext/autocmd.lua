@@ -127,7 +127,7 @@ function M._on_cursor_moved_for_publish_diagnostics(wait)
       local height = #contents
       width = 0
       for i, line in ipairs(contents) do
-        line = line:gsub("\r", "")
+        line = vim.fn.trim(line)
         local line_width = vim.fn.strdisplaywidth(line)
         width = math.max(line_width, width)
         contents[i] = line
