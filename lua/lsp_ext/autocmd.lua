@@ -17,7 +17,7 @@ function M.set_signature_help_autocmd(wait)
   lsp.callbacks['textDocument/signatureHelp'] = callbacks.signature_help
   api.nvim_command('augroup nvim_lsp_signature_help')
   api.nvim_command('autocmd!')
-  api.nvim_command(string.format("autocmd CursorMoved,CursorMovedI,VimResized,BufHidden * lua require'lsp_ext'._on_cursor_moved_for_signature_help(%s)", wait))
+  api.nvim_command(string.format("autocmd CursorMoved,CursorMovedI,VimResized,BufHidden,BufLeave * lua require'lsp_ext'._on_cursor_moved_for_signature_help(%s)", wait))
   api.nvim_command('augroup END')
 end
 
