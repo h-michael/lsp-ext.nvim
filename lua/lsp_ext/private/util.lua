@@ -138,4 +138,14 @@ function M.convert_severity(severity)
   end
 end
 
+function M.create_commands(command_defs)
+  local create_command = function(def)
+    vim.api.nvim_command("command! "..def.name.." "..def.exec)
+  end
+
+  for _, def in pairs(command_defs) do
+    create_command(def)
+  end
+end
+
 return M
