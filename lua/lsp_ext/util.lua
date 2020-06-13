@@ -18,6 +18,19 @@ function M.pp_buf_clients_config()
   putil.pp(M.buf_clients_config())
 end
 
+function M.buf_clients_settings()
+  return putil.map_clients(function(client)
+    return {
+      name = client.name, filetype = client.filetype,
+      init_options = client.config.init_options, settings = client.config.settings
+    }
+  end)
+end
+
+function M.pp_buf_clients_settings()
+  putil.pp(M.buf_clients_settings())
+end
+
 function M.buf_servers_capabilities()
   return putil.map_clients(function(client)
     return { name = client.name, filetype = client.filetype, server_capabilities = client.server_capabilities }

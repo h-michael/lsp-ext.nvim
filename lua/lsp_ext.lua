@@ -2,6 +2,7 @@ local vim = vim or {}
 local util = require'lsp_ext/util'
 local autocmd = require'lsp_ext/autocmd'
 local callbacks = require'lsp_ext/callbacks'
+local putil = require'lsp_ext/private/util'
 local M = {
   util = util,
   callbacks = callbacks,
@@ -19,5 +20,26 @@ vim.g["lsp_publish_diagnostics_severity_string_error"] = vim.g["lsp_publish_diag
 vim.g["lsp_publish_diagnostics_severity_string_warning"] = vim.g["lsp_publish_diagnostics_severity_string_warning"] or "W"
 vim.g["lsp_publish_diagnostics_severity_string_info"] = vim.g["lsp_publish_diagnostics_severity_string_info"] or "I"
 vim.g["lsp_publish_diagnostics_severity_string_hint"] = vim.g["lsp_publish_diagnostics_severity_string_hint"] or "H"
+
+local command_defs = {
+  {
+    name = "LspPPBufClientsConfig";
+    exec = "lua require'lsp_ext'.util.pp_buf_clients_config()";
+  },
+  {
+    name = "LspPPBufClientsSettings";
+    exec = "lua require'lsp_ext'.util.pp_buf_clients_settings()";
+  },
+  {
+    name = "LspPPBufServersCapabilities";
+    exec = "lua require'lsp_ext'.util.pp_buf_servers_capabilities()";
+  },
+  {
+    name = "LspPPBufResolvedCapabilities";
+    exec = "lua require'lsp_ext'.util.pp_buf_resolved_capabilities";
+  },
+}
+
+putil.create_commands(command_defs)
 
 return M
